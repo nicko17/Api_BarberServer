@@ -7,10 +7,14 @@ const { matchedData } = require('express-validator')
 
 //Obtener lista de la base de datos
 const getItem = async (req, res) => {
-    console.log("Entro")
-    const id =  req.params.id
-    const data = await clienteModel.findByPk(id)
-    res.send({data})
+    try{
+        console.log("Entro")
+        const id =  req.params.id
+        const data = await clienteModel.findById(id)
+        res.send({data})
+    }catch(error){
+        handleHttpError(res,"ERROR_GET_ITEM")
+    }
 } 
 
 //Obtener un detalle de la base de datos

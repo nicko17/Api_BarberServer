@@ -7,13 +7,13 @@ const { getItems, getItem, createItem, updateItem, deleteItem } = require("../co
 const { uploadMiddleware } = require("../utils/handleCliente")
 const router = express.Router()
 
-// Ruta http://localhost/cliente GET, POST, DELETE, PUT
+// Ruta   GET, POST, DELETE, PUT
 
 //Obtener los items
 router.get("/cliente", getItems)
 
 //Obtener un item
-router.get("/cliente:id", validatorGetItem, getItem)
+router.get("/cliente/:id", validatorGetItem, getItem)
 
 //Crear un item
 router.post("/cliente", validatorCreateItem, uploadMiddleware.single("Foto"), createItem) 
