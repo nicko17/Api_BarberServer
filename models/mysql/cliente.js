@@ -29,6 +29,10 @@ const Cliente = sequelize.define(
             type: DataTypes.BLOB,
             allowNull: true,
         },
+        Password: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     },
     {
         timestamps: false,

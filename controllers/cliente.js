@@ -7,14 +7,17 @@ const { matchedData } = require('express-validator')
 
 //Obtener lista de la base de datos
 const getItem = async (req, res) => {
-    console.log("Entro")
-    let id =  req.params.id
-    const data = await clienteModel.findOne({
-        where:{
-            id: id
-        }
-    })
-    res.send({data})
+    try {
+        let id =  req.params.id
+        const data = await clienteModel.findOne({
+            where:{
+                id: id
+            }
+        })
+        res.send({data})   
+    } catch (error) {
+        handleHttpError(res, 'Error get item')
+    }
 } 
 
 //Obtener un detalle de la base de datos
@@ -60,13 +63,23 @@ const updateItem = async (req, res) => {
         })
         res.send({ data })
     } catch (error) {
-        handleHttpError(res, 'Error create items')
+        handleHttpError(res, 'Error update item')
     }
 }
 
 //Eliminar un registro
 const deleteItem = async (req, res) => {
-
+    try {
+        let id =  req.params.id
+        const data = await clienteModel.destroy({
+            where:{
+                id: id
+            }
+        })
+        res.send({data})   
+    } catch (error) {
+        handleHttpError(res, 'Error delete item')
+    }
 }
 
 
