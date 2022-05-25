@@ -7,18 +7,19 @@ const { matchedData } = require('express-validator')
 
 //Obtener lista de la base de datos
 const getItem = async (req, res) => {
-    try{
-        console.log("Entro")
-        const id =  req.params.id
-        const data = await clienteModel.findById(id)
-        res.send({data})
-    }catch(error){
-        handleHttpError(res,"ERROR_GET_ITEM")
-    }
+    console.log("Entro")
+    let id =  req.params.id
+    const data = await clienteModel.findOne({
+        where:{
+            id: id
+        }
+    })
+    res.send({data})
 } 
 
 //Obtener un detalle de la base de datos
 const getItems = async (req, res) => {
+    console.log(req.body.id)
     try {
         const data = await clienteModel.findAll({})
         res.send({data})
@@ -46,13 +47,18 @@ const createItem = async (req, res) => {
 //Actualizar un registro
 const updateItem = async (req, res) => {
     try {
-        const {idCliente, ...body} = matchedData(req)
+        const id = req.params.id
         // const fileData = {
         //     filename: file.filename,
         //     url:`${PUBLIC_URL}/${file.filename}`
         // }
-        const data = await clienteModel.update(body)
-        res.send({data})
+        const data = await clienteModel.update(req.body, {
+            where:
+            {
+                id: id
+            }
+        })
+        res.send({ data })
     } catch (error) {
         handleHttpError(res, 'Error create items')
     }

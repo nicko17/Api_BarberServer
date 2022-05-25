@@ -19,7 +19,7 @@ router.get("/cliente/:id", validatorGetItem, getItem)
 router.post("/cliente", validatorCreateItem, uploadMiddleware.single("Foto"), createItem) 
 
 //Actualizar un item
-router.put("/cliente:id", updateItem)
+router.put("/:id", updateItem)
 
 //Eliminar un item
 router.delete("/cliente:id", deleteItem)

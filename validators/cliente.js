@@ -20,7 +20,7 @@ const validatorCreateItem = [
 ]
 
 const validatorGetItem = [
-    check("idCliente")
+    check("id")
     .exists()
     .notEmpty(),
     (req, res, next) =>{
