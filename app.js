@@ -15,7 +15,8 @@ app.use("/api", require("./routes/cliente"))
 app.use("/api", require("./routes/trabajador"))
 app.use("/api", require("./routes/citas"))
 app.use("/api", require("./routes/servicios"))
-app.use("/api", require("./routes/categoria")) 
+app.use("/api", require("./routes/categoria"))
+app.use("/api", require("./routes/auth"))  
 
 app.listen(port, () => {
     console.log(`Tu app esta lista por http://localhost:${port}`)
