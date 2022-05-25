@@ -32,7 +32,12 @@ const Cliente = sequelize.define(
         Password: {
             type: DataTypes.STRING,
             allowNull: true,
-        }
+            select: false,
+        },
+        Rol:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     },
     {
         timestamps: false,
