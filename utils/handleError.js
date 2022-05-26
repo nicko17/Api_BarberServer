@@ -1,6 +1,5 @@
 const  handleHttpError = (res, message = 'algo sucedio', code = 403) => {
-    res.status(code)
-    res.status({ error: message })
+    return res.status(code).json({ error: message })
 }
 
 module.exports = { handleHttpError }
