@@ -28,14 +28,14 @@ const validatorRegisterItem = [
 ]
 
 const validatorLoginItem = [
-    check("Password")
-    .exists()
-    .notEmpty()
-    .isLength({min: 10, max: 10}),
     check("Email")
     .exists()
     .notEmpty()
     .isEmail(),
+    check("Password")
+    .exists()
+    .notEmpty()
+    .isLength({min: 5, max: 10}),
     (req, res, next) =>{
         return validateResults(req, res, next)
     } 

@@ -61,7 +61,7 @@ CREATE TABLE `citas` (
   KEY `FK_citas_trabajador_idx` (`idTrabajador`),
   KEY `FK_citas_cliente_idx` (`idCliente`),
   CONSTRAINT `FK_citas_servicios` FOREIGN KEY (`idServicio`) REFERENCES `servicios` (`idServicio`),
-  CONSTRAINT `FK_citas_trabajador` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajador` (`idTrabajador`),
+  CONSTRAINT `FK_citas_trabajador` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajadores` (`idTrabajador`),
   CONSTRAINT `KF_citas_cliente` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -89,9 +89,10 @@ CREATE TABLE `clientes` (
   `Telefono` char(30) NOT NULL,
   `Email` varchar(60) NOT NULL,
   `Foto` longblob,
-  `Token` varchar(200) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL,
+  `Rol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +101,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (6,'Juan David','Noreña','3426783123','rpg@gmail.com',NULL,NULL),(7,'Juan David','Noreña','3426783123','rpg@gmail.com',NULL,NULL);
+INSERT INTO `clientes` VALUES (7,'Jerson','Perez','3728332','jd@',NULL,NULL,NULL),(10,'Nickolas','Perez','3173843232','jd@gmail.com',NULL,'$2a$10$sLxB3xB44XybmEszXmGG8.s4p5gf/q9WPV2LCu2FcJaoSQ4kEcDjy',NULL),(11,'Victor','Ramirez','3225672343','vic@gmail.com',NULL,'$2a$10$Zgz2gx/CjdOIeoL7pmHHje/eNC7rYE.as6MlkE8cH3mLDO3Ghx2eS',NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,13 +131,13 @@ INSERT INTO `servicios` VALUES (1,'Corte pelo',12000);
 UNLOCK TABLES;
 
 --
--- Table structure for table `trabajador`
+-- Table structure for table `trabajadores`
 --
 
-DROP TABLE IF EXISTS `trabajador`;
+DROP TABLE IF EXISTS `trabajadores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `trabajador` (
+CREATE TABLE `trabajadores` (
   `idTrabajador` int NOT NULL AUTO_INCREMENT,
   `Nombres` varchar(50) NOT NULL,
   `Apellidos` varchar(50) NOT NULL,
@@ -144,8 +145,7 @@ CREATE TABLE `trabajador` (
   `Direccion` varchar(70) DEFAULT NULL,
   `Foto` longblob,
   `idCategoria` int NOT NULL,
-  `createAt` datetime DEFAULT NULL,
-  `updateAt` datetime DEFAULT NULL,
+  `Rol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTrabajador`),
   KEY `FK_trabajador_categoria_idx` (`idCategoria`),
   CONSTRAINT `FK_trabajador_categoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`)
@@ -153,12 +153,12 @@ CREATE TABLE `trabajador` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trabajador`
+-- Dumping data for table `trabajadores`
 --
 
-LOCK TABLES `trabajador` WRITE;
-/*!40000 ALTER TABLE `trabajador` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trabajador` ENABLE KEYS */;
+LOCK TABLES `trabajadores` WRITE;
+/*!40000 ALTER TABLE `trabajadores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trabajadores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -170,4 +170,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-24  9:14:24
+-- Dump completed on 2022-05-26  8:47:40

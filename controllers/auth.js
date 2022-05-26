@@ -4,6 +4,7 @@ const { tokenSign, verifytoken } = require("../utils/handleJwt")
 const { encrypt, compare } = require("../utils/handlePassword")
 const { handleHttpError } = require("../utils/handleError")
 const { use } = require("../routes/auth")
+const bcryptjs = require("bcryptjs")
 
 const registerCtrl = async (req, res) => {
 
@@ -27,19 +28,18 @@ const registerCtrl = async (req, res) => {
 }
 
 const loginCtrl = async (req, res) => {
-
     try {
         req = matchedData(req)
-        const user = await clienteModel.findOne({
-            email:req.Email 
-        }).select('Password')
+        const user = await clienteModel.findOne({ Email:req.Email }).select('Password')
+
         if(!user){
             handleHttpError(res, "El cliente no existe", 404)
             return
         }
 
         const hashPassword = user.get('Password')
-        const check = await compare(req.Password, hashPassword)
+        console.log('ok')
+        const check = await bcryptjs.compare(req.Password, hashPassword)
         if(!check){
             handleHttpError(res, "Contaseña invalida", 401)
             return
