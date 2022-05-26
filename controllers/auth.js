@@ -3,7 +3,8 @@ const  { matchedData } = require("express-validator")
 const { tokenSign, verifytoken } = require("../utils/handleJwt")
 const { encrypt, compare } = require("../utils/handlePassword")
 const { handleHttpError } = require("../utils/handleError")
-const { use } = require("../routes/auth")
+const bcryptjs = require("bcryptjs")
+
 
 const registerCtrl = async (req, res) => {
 
@@ -38,15 +39,12 @@ const loginCtrl = async (req, res) => {
             Email 
         }})
 
-         
-        console.log('-> ',user);
-
         if(!user){
             handleHttpError(res, "El cliente no existe", 404)
             console.log("ok")
             return ''
         }
-
+        console.log("->",Password);
         
         const hashPasswordDb = user.get('Password')
         console.log({hashPasswordDb})

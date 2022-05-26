@@ -7,7 +7,10 @@ const encrypt = async (passwordPlain) => {
 }
 
 const compare = async (passwordPlain, hashPassword) => {
-    return await bcryptjs.compare(passwordPlain, hashPassword)
+    
+    const compare = await bcryptjs.compare(passwordPlain, hashPassword)
+    console.log("->",passwordPlain)
+    return compare
 }
 
 
