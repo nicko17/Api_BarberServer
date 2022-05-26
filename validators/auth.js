@@ -28,13 +28,6 @@ const validatorRegisterItem = [
 ]
 
 const validatorLoginItem = [
-<<<<<<< HEAD
-=======
-    check("Password")
-    .exists()
-    .notEmpty()
-    .isLength({min:5, max: 10}),
->>>>>>> dbd8b69e14132f3b23b350b58e8629e20c179eb7
     check("Email")
     .exists()
     .notEmpty()
