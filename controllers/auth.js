@@ -3,8 +3,8 @@ const  { matchedData } = require("express-validator")
 const { tokenSign, verifytoken } = require("../utils/handleJwt")
 const { encrypt, compare } = require("../utils/handlePassword")
 const { handleHttpError } = require("../utils/handleError")
-const { use } = require("../routes/auth")
 const bcryptjs = require("bcryptjs")
+
 
 const registerCtrl = async (req, res) => {
 
@@ -28,18 +28,22 @@ const registerCtrl = async (req, res) => {
 }
 
 const loginCtrl = async (req, res) => {
-  conts {Email, Password} =
+    const {Email, Password} = req.body
     try {
-        req = matchedData(req)
-        const user = await clienteModel.findOne({ Email:req.Email }).select('Password')
-        console.log("->", user);
+        //req = matchedData(req);
+        const user = await clienteModel.findOne({where :{
+            Email 
+        }})
+
         if(!user){
             return handleHttpError(res, "El cliente no existe", 404)
         }
-
-        const hashPassword = user.get('Password')
-        console.log('ok')
-        const check = await bcryptjs.compare(req.Password, hashPassword)
+        console.log("->",Password);
+        
+        const hashPasswordDb = user.get('Password')
+        console.log({hashPasswordDb})
+        const check = await compare(Password, hashPasswordDb)
+        console.log('-> ',check);
         if(!check){
              return handleHttpError(res, "Contaseña invalida", 401)
             //return res.status(401).json({msg:'Credenciale incorrectas'});
