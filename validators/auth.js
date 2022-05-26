@@ -21,7 +21,7 @@ const validatorRegisterItem = [
     check("Password")
     .exists()
     .notEmpty()
-    .isLength({min: 10, max: 10}),
+    .isLength({min: 5, max: 10}),
     (req, res, next) =>{
         return validateResults(req, res, next)
     } 
