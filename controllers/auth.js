@@ -32,13 +32,14 @@ const loginCtrl = async (req, res) => {
         req = matchedData(req)
         const user = await clienteModel.findOne({
             email:req.Email 
-        }).select('Password')
+        }).select('Password Nombres Email');
         if(!user){
             handleHttpError(res, "El cliente no existe", 404)
             return
         }
 
         const hashPassword = user.get('Password')
+        console.log({hashPassword})
         const check = await compare(req.Password, hashPassword)
         if(!check){
             handleHttpError(res, "Contaseña invalida", 401)

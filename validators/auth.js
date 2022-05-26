@@ -31,7 +31,7 @@ const validatorLoginItem = [
     check("Password")
     .exists()
     .notEmpty()
-    .isLength({min: 10, max: 10}),
+    .isLength({min:0, max: 10}),
     check("Email")
     .exists()
     .notEmpty()
