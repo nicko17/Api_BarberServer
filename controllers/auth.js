@@ -30,7 +30,7 @@ const registerCtrl = async (req, res) => {
 const loginCtrl = async (req, res) => {
     const {Email, Password} = req.body
     try {
-        //req = matchedData(req);
+        req = matchedData(req);
         const user = await clienteModel.findOne({where :{
             Email 
         }})
@@ -38,19 +38,16 @@ const loginCtrl = async (req, res) => {
         if(!user){
             return handleHttpError(res, "El cliente no existe", 404)
         }
-        console.log("->",Password);
         
         const hashPasswordDb = user.get('Password')
-        console.log({hashPasswordDb})
         const check = await compare(Password, hashPasswordDb)
-        console.log('-> ',check);
         if(!check){
              return handleHttpError(res, "Contaseña invalida", 401)
-            //return res.status(401).json({msg:'Credenciale incorrectas'});
         }
 
+        user.set("Password", undefined, {strict:false})
         const data = {
-            token: tokenSign(user),
+            token: await tokenSign(user),
             user
         }
 

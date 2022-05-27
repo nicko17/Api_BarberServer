@@ -3,6 +3,7 @@ const express = require("express")
 const req = require("express/lib/request")
 const { validatorCreateItem, validatorGetItem } = require("../validators/cliente")
 const customHeader = require("../middleware/customHeader")
+const authMiddleware = require("../middleware/session")
 const { getItems, getItem, createItem, updateItem, deleteItem } = require("../controllers/cliente")
 const { uploadMiddleware } = require("../utils/handleCliente")
 const router = express.Router()
@@ -13,7 +14,7 @@ const router = express.Router()
 router.get("/cliente", getItems)
 
 //Obtener un item
-router.get("/cliente/:id", validatorGetItem, getItem)
+router.get("/cliente/:id",  authMiddleware, validatorGetItem, getItem)
 
 //Crear un item
 router.post("/cliente", validatorCreateItem, uploadMiddleware.single("Foto"), createItem) 

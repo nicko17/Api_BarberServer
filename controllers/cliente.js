@@ -14,7 +14,8 @@ const getItem = async (req, res) => {
                 id: id
             }
         })
-        res.send({data})   
+        const user = req.user
+        res.send({data, user})   
     } catch (error) {
         handleHttpError(res, 'Error get item')
     }
@@ -25,7 +26,7 @@ const getItems = async (req, res) => {
     console.log(req.body.id)
     try {
         const data = await clienteModel.findAll({})
-        res.send({data})
+        res.send({ data})
         console.log(data)
     } catch (error) {
         handleHttpError(res, 'Error get items')
