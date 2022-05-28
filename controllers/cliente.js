@@ -8,13 +8,13 @@ const { matchedData } = require('express-validator')
 //Obtener lista de la base de datos
 const getItem = async (req, res) => {
     try {
+        const user = req.user
         let id =  req.params.id
         const data = await clienteModel.findOne({
             where:{
                 id: id
             }
         })
-        const user = req.user
         res.send({data, user})   
     } catch (error) {
         handleHttpError(res, 'Error get item')
@@ -26,7 +26,7 @@ const getItems = async (req, res) => {
     console.log(req.body.id)
     try {
         const data = await clienteModel.findAll({})
-        res.send({ data})
+        res.send({ data })
         console.log(data)
     } catch (error) {
         handleHttpError(res, 'Error get items')
@@ -42,7 +42,7 @@ const createItem = async (req, res) => {
         //     url:`${PUBLIC_URL}/${file.filename}`
         // }
         const data = await clienteModel.create(body)
-        res.send({data})
+        res.send( {data })
     } catch (error) {
         handleHttpError(res, 'Error create items')
     }

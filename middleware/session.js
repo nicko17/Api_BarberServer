@@ -10,10 +10,10 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const token  = req.headers.authorization.split(' ').pop()
+    console.log(token)
     const datatoken = await verifytoken(token)
 
-    console.log(token)
-    console.log(datatoken)
+    console.log(datatoken['id'])
     console.log(req.params.id)
 
     if(!datatoken){
@@ -21,7 +21,7 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const query = {where: {
-      id:datatoken[id]
+      id:datatoken['id']
     }
     }
 
