@@ -19,16 +19,13 @@ const authMiddleware = async (req, res, next) => {
     if(!datatoken){
       handleHttpError(res, "Token no existe", 401)
     }
-
     const query = {where: {
-      id:datatoken[id]
+      id:datatoken["id"]
     }
     }
 
-    console.log(query)
-    const user = await clienteModel.findOne({query})
-    console.log(user)
-
+    console.log("->",query)
+    const user = await clienteModel.findOne(query)
     req.user = user
 
     next()
