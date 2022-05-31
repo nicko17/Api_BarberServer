@@ -7,34 +7,62 @@ const bcryptjs = require("bcryptjs")
 
 
 const registerCtrl = async (req, res) => {
-
     try {
+        Email = req.body.Email 
+        const isEmailExist = await clienteModel.findOne({ where :{
+            Email
+        }
+        })
+        console.log("EMIAL -->", isEmailExist)
+    
+        if (isEmailExist) {
+            return res.status(400).json(
+                { error: 'Email ya registrado' }
+            )
+        }
+
         req = req
-        if(req.body.Rol == "usuario"){
+        if (req.body.Rol == "usuario") {
             const Password = await encrypt(req.body.Password)
-            const body = {...req.body, Password}
+            const body = { ...req.body, Password }
             const dataUser = await clienteModel.create(body)
             dataUser.set("Password", undefined, { strict: false }) //no mostramos la contraseña en la data
 
             const data = {
                 token: await tokenSign(dataUser),
-                user:dataUser
+                user: dataUser
             }
+
+            res.send({ data })
+
+
+        } else if (req.body.Rol == "trabajador") {
+
+            Email = req.body.Email 
+            const isEmailExist = await trabajadorModel.findOne({ where :{
+                Email
+            }
+            })
+            console.log("EMIAL -->", isEmailExist)
         
-            res.send({data})
-        }else if(req.body.Rol == "trabajador"){
+            if (isEmailExist) {
+                return res.status(400).json(
+                    { error: 'Email ya registrado' }
+                )
+            }
+
             const Password = await encrypt(req.body.Password)
-            const body = {...req.body, Password}
+            const body = { ...req.body, Password }
             const dataUser = await trabajadorModel.create(body)
             dataUser.set("Password", undefined, { strict: false }) //no mostramos la contraseña en la data
-        
+
             const data = {
                 token: await tokenSign(dataUser),
-                user:dataUser
+                user: dataUser
             }
-         
-            res.send({data})
-        }
+
+            res.send({ data })
+        }   
     } catch (error) {
            handleHttpError(res, "Error registrar usuario")
     }

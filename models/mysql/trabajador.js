@@ -1,5 +1,6 @@
 const { Sequelize, sequelize } = require("../../config/mysql")
 const { DataTypes } = require("sequelize")
+const { categoria } = require("./categoria")
 
 const Trabajador = sequelize.define(
     "trabajadore",
@@ -37,6 +38,10 @@ const Trabajador = sequelize.define(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        Telefono: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         Password: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -51,5 +56,7 @@ const Trabajador = sequelize.define(
         timestamps: false,
     }
 )
+
+// Trabajador.hasOne()
 
 module.exports = Trabajador
