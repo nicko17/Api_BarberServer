@@ -4,13 +4,12 @@ const models = require("../models")
 const JWT_SECRET = process.env.JWT_SECRET
 
 const tokenSign = async (user) => {
-    console.log("USER -->", user)
     const sing = {}
     if(user["Rol"] == "usuario"){
-            sign = await jwt.sign(
+        sign = await jwt.sign(
             {
-               id: user.idCliente,
-               role: user.Rol,
+                id: user.idCliente,
+                role: user.Rol,
             },
             JWT_SECRET,
             {
@@ -20,8 +19,8 @@ const tokenSign = async (user) => {
     }else if(user["Rol"] == "trabajador"){
         sign = await jwt.sign(
             {
-               id: user.idTrabajador,
-               role: user.Rol,
+                id: user.idTrabajador,
+                role: user.Rol,
             },
             JWT_SECRET,
             {

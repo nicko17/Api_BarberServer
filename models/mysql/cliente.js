@@ -1,5 +1,6 @@
 const { Sequelize, sequelize } = require("../../config/mysql")
-const { DataTypes } = require("sequelize")
+const { DataTypes, Model } = require("sequelize")
+const { clienteModel } = require("..")
 
 const Cliente = sequelize.define(
     "clientes",
@@ -43,5 +44,6 @@ const Cliente = sequelize.define(
         timestamps: false,
     }
 )
+
 
 module.exports = Cliente

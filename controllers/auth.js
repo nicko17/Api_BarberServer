@@ -15,12 +15,12 @@ const registerCtrl = async (req, res) => {
             const body = {...req.body, Password}
             const dataUser = await clienteModel.create(body)
             dataUser.set("Password", undefined, { strict: false }) //no mostramos la contraseña en la data
-        
+
             const data = {
                 token: await tokenSign(dataUser),
                 user:dataUser
             }
-         
+        
             res.send({data})
         }else if(req.body.Rol == "trabajador"){
             const Password = await encrypt(req.body.Password)
