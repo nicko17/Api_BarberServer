@@ -6,6 +6,7 @@ const customHeader = require("../middleware/customHeader")
 const authMiddleware = require("../middleware/session")
 const { getItems, getItem, createItem, updateItem, deleteItem } = require("../controllers/cliente")
 const { uploadMiddleware } = require("../utils/handleCliente")
+const checkRol = require("../middleware/rol")
 const router = express.Router()
 
 // Ruta   GET, POST, DELETE, PUT
@@ -14,13 +15,13 @@ const router = express.Router()
 router.get("/cliente", getItems)
 
 //Obtener un item
-router.get("/cliente/:id",  authMiddleware, validatorGetItem, getItem)
+router.get("/cliente/:id", authMiddleware, checkRol(['usuario']), validatorGetItem, getItem)
 
 //Crear un item
-router.post("/cliente", validatorCreateItem, uploadMiddleware.single("Foto"), createItem) 
+router.post("/cliente", validatorCreateItem, createItem) 
 
 //Actualizar un item
-router.put("/cliente/:id", updateItem)
+router.put("/cliente/:id", authMiddleware, checkRol(['usuario']), updateItem)
 
 //Eliminar un item
 router.delete("/cliente/:id", validatorGetItem, deleteItem)

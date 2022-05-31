@@ -23,11 +23,11 @@ const Citas = sequelize.define(
         },
         Hora: {
             type: DataTypes.TIME,
-            allowNull: true,
+            allowNull: false,
         },
         Fecha: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
         },
     },
     {

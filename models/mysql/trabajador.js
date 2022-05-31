@@ -33,6 +33,19 @@ const Trabajador = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        Email: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        Password: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            select: false,
+        },
+        Rol: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
     },
     {
         timestamps: false,

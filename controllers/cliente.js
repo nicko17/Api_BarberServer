@@ -8,16 +8,16 @@ const { matchedData } = require('express-validator')
 //Obtener lista de la base de datos
 const getItem = async (req, res) => {
     try {
-        const user = req.user
         let id =  req.params.id
         const data = await clienteModel.findOne({
             where:{
-                id: id
+                idCliente: id
             }
         })
+        const user = req.user
         res.send({data, user})   
     } catch (error) {
-        handleHttpError(res, 'Error get item')
+        handleHttpError(res, 'Error al obtener el cliente')
     }
 } 
 
@@ -29,22 +29,22 @@ const getItems = async (req, res) => {
         res.send({ data })
         console.log(data)
     } catch (error) {
-        handleHttpError(res, 'Error get items')
+        handleHttpError(res, 'Error al obtener los clientes')
     }
 }
 
 //Crear un registro
 const createItem = async (req, res) => {
     try {
-        const body = matchedData(req)
+        const body = req.body
         // const fileData = {
         //     filename: file.filename,
         //     url:`${PUBLIC_URL}/${file.filename}`
         // }
         const data = await clienteModel.create(body)
-        res.send( {data })
+        res.send({ data })
     } catch (error) {
-        handleHttpError(res, 'Error create items')
+        handleHttpError(res, 'Error al crear el cliente')
     }
 }
 
@@ -59,12 +59,12 @@ const updateItem = async (req, res) => {
         const data = await clienteModel.update(req.body, {
             where:
             {
-                id: id
+                idCliente: id
             }
         })
         res.send({ data })
     } catch (error) {
-        handleHttpError(res, 'Error update item')
+        handleHttpError(res, 'Error al actualizar el cliente')
     }
 }
 
@@ -74,12 +74,12 @@ const deleteItem = async (req, res) => {
         let id =  req.params.id
         const data = await clienteModel.destroy({
             where:{
-                id: id
+                idCliente: id
             }
         })
-        res.send({data})   
+        res.send({ data })   
     } catch (error) {
-        handleHttpError(res, 'Error delete item')
+        handleHttpError(res, 'Error al eliminar el cliente')
     }
 }
 
